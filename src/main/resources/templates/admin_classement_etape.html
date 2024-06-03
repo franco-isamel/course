@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/png" th:href="@{/assets/images/logos/favicon.png}" />
+    <link rel="stylesheet" th:href="@{/assets/css/styles.min.css}" />
+    <title>Classement</title>
+</head>
+<body>
+    <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+    data-sidebar-position="fixed" data-header-position="fixed">
+        <!-- Sidebar Start -->
+        <aside class="left-sidebar">
+            <!-- Sidebar scroll-->
+            <div>
+                <div class="brand-logo d-flex align-items-center justify-content-between">
+                <a th:href="@{#}" class="text-nowrap logo-img">
+                    <img th:src="@{/assets/images/logos/dark-logo.svg}" width="180" alt="" />
+                </a>
+                <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
+                    <i class="ti ti-x fs-8"></i>
+                </div>
+                </div>
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+                <ul id="sidebarnav">
+                    <li class="sidebar-item">
+                        <a class="sidebar-link active" th:href="@{#}" aria-expanded="false">
+                            <span class="hide-menu">Listes des étapes</span>
+                        </a>
+                    </li>
+                </ul>
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+
+        <div class="body-wrapper">
+            <div class="container-fluid">
+                <div class="row"
+                    style="padding: 20px 0px 0px 20px;">
+                    <div class="col-lg-8 d-flex align-items-stretch" style="width: 125%;">
+                        <div class="card w-100">
+                        <div class="card-body p-4">
+                            <h5 class="card-title fw-semibold mb-4">Classement par étape</h5>
+                            <div class="table-responsive">
+                            <select name="etape" onchange="getClassement()">
+                                <option th:each="etape : ${listEtape}" 
+                                        th:value="${etape.getIdEtape()}"
+                                        th:text="${etape.getNomEtape()}">
+                                </option>
+                            </select>
+                            <table class="table text-nowrap mb-0 align-middle">
+                                <thead class="text-dark fs-4">
+                                <tr>
+                                    <th class="border-bottom-0">
+                                        <h6 class="fw-semibold mb-0">Coureur</h6>
+                                    </th>
+                                    <th class="border-bottom-0">
+                                        <h6 class="fw-semibold mb-0">Equipe</h6>
+                                    </th>
+                                    <th class="border-bottom-0">
+                                        <h6 class="fw-semibold mb-0">Rang</h6>
+                                    </th>
+                                    <th class="border-bottom-0">
+                                        <h6 class="fw-semibold mb-0">Point</h6>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody id = "classement">
+                                </tbody>
+                            </table>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+
+    window.addEventListener('load', function(){
+        getClassement();
+    });
+
+
+    function create_HttpRequest(){
+        var xhr; 
+        try {  xhr = new ActiveXObject('Msxml2.XMLHTTP');   }
+        catch (e) 
+        {
+            try {   xhr = new ActiveXObject('Microsoft.XMLHTTP'); }
+            catch (e2) 
+            {
+                try {  xhr = new XMLHttpRequest();  }
+                catch (e3) {  xhr = false;   }
+            }
+        }
+
+        return xhr;
+    }
+
+    function getClassement(){
+        var etape = document.getElementsByName("etape")[0].value;
+        console.log(etape);
+        var thbody = document.getElementById("classement");
+        var xhr = create_HttpRequest();
+        var datas = Array();
+        xhr.addEventListener("load", function(event) {    
+            datas = JSON.parse(xhr.responseText);
+        });
+        xhr.open("GET", "/admin/classement/etape/"+etape,false);
+        xhr.send(null);
+        thbody.innerHTML = "";
+        console.log(datas);
+        var newTbody = "";
+        datas.forEach(data => {
+            newTbody = newTbody 
+            +"<tr>"
+                +" <td class=\"border-bottom-0\">"+data[1]+"</td>"
+                +" <td class=\"border-bottom-0\">"+data[5]+"</td>"
+                +" <td class=\"border-bottom-0\">"+data[8]+"</td>"
+                +" <td class=\"border-bottom-0\">"+data[9]+"</td>"
+            +"</tr>";
+        });
+        thbody.innerHTML = newTbody;
+    }
+
+
+
+</script>
+</html>

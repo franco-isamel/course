@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/png" th:href="@{/assets/images/logos/favicon.png}" />
+    <link rel="stylesheet" th:href="@{/assets/css/styles.min.css}" />
+    <title>login</title>
+</head>
+<body>
+    <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+    data-sidebar-position="fixed" data-header-position="fixed">
+    <div
+      class="position-relative overflow-hidden radial-gradient min-vh-100 d-flex align-items-center justify-content-center">
+      <div class="d-flex align-items-center justify-content-center w-100">
+        <div class="row justify-content-center w-100">
+          <div class="col-md-8 col-lg-6 col-xxl-3">
+            <div class="card mb-0">
+              <div class="card-body">
+                <a th:href="@{./index.html}" class="text-nowrap logo-img text-center d-block py-3 w-100">
+                  <img th:src="@{/assets/images/logos/dark-logo.svg}" width="180" alt="">
+                </a>
+                <p class="text-center">Connectez-vous</p>
+                <form action="equipe/login" method="get" >
+                  <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Login</label>
+                    <input type="text" name="loginEquipe" class="form-control" id="exampleInputEmail1" placeholder="Login" aria-describedby="emailHelp"><br>
+                    <label for="exampleInputEmail1" class="form-label">Mote de passe</label>
+                    <input type="text" name="pwdEquipe" class="form-control" id="exampleInputEmail1" placeholder="Mote de passe" aria-describedby="emailHelp"><br>
+                    <button class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2" >Se connecter</button>
+                    <a th:href="@{/admin/adminLogin/pwd}">
+                      connecter en tant qu'admin
+                    </a>
+                </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
