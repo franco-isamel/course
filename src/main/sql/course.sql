@@ -48,7 +48,11 @@ create table AdminCourse(
     loginAdmin VARCHAR,
     pwdLogin VARCHAR
 );
-
+create table Ad(
+    idAdmin SERIAL PRIMARY KEY,
+    loginAdmin VARCHAR,
+    pwdLogin VARCHAR
+);
 insert into AdminCourse (loginAdmin,pwdLogin) VALUES('adminLogin','pwd');
 
 create table EtapeCoureur(
