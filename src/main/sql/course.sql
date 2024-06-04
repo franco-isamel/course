@@ -26,7 +26,7 @@ create table Categorie(
     nomCategorie VARCHAR
 );
 
-create table Coureur(
+create table Coureur
     idCoureur SERIAL PRIMARY KEY,
     nomCoureur VARCHAR,
     numero INT,
